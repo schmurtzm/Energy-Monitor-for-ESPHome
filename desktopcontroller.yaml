@@ -1,0 +1,137 @@
+esphome:
+  name: desktopcontroller
+
+############ old way
+#  includes:
+#  - powersensor.h
+#  - EmonLib.h
+#  - EmonLib.cpp
+
+#  includes:
+#    - custom_components/mypowersensor/mypowersensor.h
+
+
+external_components:
+  - source: external_components
+
+
+esp32:
+  # platform: ESP32
+  board: nodemcu-32s
+  framework:
+    type: arduino
+
+   
+wifi:
+  ssid: "xxxxx"
+  password: "xxxx"
+
+  # Optional manual IP
+  manual_ip:
+    static_ip: 192.168.22.36
+    gateway: 192.168.22.1
+    subnet: 255.255.255.0
+  
+
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: "xxxx"
+    password: "xxxx"
+
+captive_portal:
+
+
+web_server:
+  port: 80
+
+
+
+# Enable logging
+logger:     
+  baud_rate: 0   # disable logging via UART, help to avoid numerous crash with ESP_LOGD
+  level: DEBUG 
+ # hardware_uart: UART1
+
+
+# Enable Home Assistant API (set a password here for more security)
+api:
+  encryption:
+    key: "xxxx"
+
+# Enable OTA (set a password here for more security)
+ota:
+ - platform: esphome
+   password: 'xxxx'
+  
+
+time:
+  - platform: homeassistant
+    id: esptime
+
+
+sensor:
+# - platform: empty_sensor
+  # name: Empty sendsor
+
+- platform: powersensor
+  name: Empty sendsor  # not working...
+
+
+############ old way ############
+###- platform: mypowersensor
+###  lambda: |-
+###    auto my_sensor = new MyPowerSensor();
+###    App.register_component(my_sensor);
+###    return {my_sensor->realpower_sensor1, my_sensor->realpower_sensor2, my_sensor->realpower_sensor3 , my_sensor->realpower_sensor4};
+###    
+###
+###    
+###  sensors:
+###  - name: "RealPowerSensor1"
+###    unit_of_measurement: W
+###    accuracy_decimals: 2
+###  - name: "RealPowerSensor2"
+###    unit_of_measurement: W
+###    accuracy_decimals: 2
+###  - name: "RealPowerSensor3"
+###    unit_of_measurement: W
+###    accuracy_decimals: 2
+###  - name: "RealPowerSensor4"
+###    unit_of_measurement: W
+###    accuracy_decimals: 2
+###
+###- platform: uptime
+###  id: uptime_seconds
+###  name: "Uptime Desktop Controller"
+###  update_interval: 60s
+###  unit_of_measurement: s
+###  accuracy_decimals: 0
+###  force_update: false
+###  icon: mdi:timer
+###  internal: True  # Hide to HA
+
+
+############ Not working anymore
+text_sensor:
+###  - platform: template
+###    name: Desktop Controller - Uptime
+###    update_interval: 59s
+###    icon: mdi:clock-start
+###    lambda: |-
+###      int seconds = (id(uptime_seconds).state);
+###      int days = seconds / (24 * 3600);
+###      seconds = seconds % (24 * 3600);
+###      int hours = seconds / 3600;
+###      seconds = seconds % 3600;
+###      int minutes = seconds /  60;
+###      seconds = seconds % 60;
+###      if ( days ) {
+###        return { (String(days) +"d " + String(hours) +"h " + String(minutes) +"m "+ String(seconds) +"s").c_str() };
+###      } else if ( hours ) {
+###        return { (String(hours) +"h " + String(minutes) +"m "+ String(seconds) +"s").c_str() };
+###      } else if ( minutes ) {
+###        return { (String(minutes) +"m "+ String(seconds) +"s").c_str() };
+###      } else {
+###        return { (String(seconds) +"s").c_str() };
+###      }
+###

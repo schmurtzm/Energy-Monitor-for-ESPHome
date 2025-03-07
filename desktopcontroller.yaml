@@ -12,7 +12,7 @@ esphome:
 
 
 external_components:
-  - source: external_components
+  - source: components
 
 
 esp32:
@@ -24,7 +24,7 @@ esp32:
    
 wifi:
   ssid: "xxxxx"
-  password: "xxxx"
+  password: "xxxxxxxxxxxx"
 
   # Optional manual IP
   manual_ip:
@@ -36,7 +36,7 @@ wifi:
   # Enable fallback hotspot (captive portal) in case wifi connection fails
   ap:
     ssid: "xxxx"
-    password: "xxxx"
+    password: "xxxxxxxxxxxx"
 
 captive_portal:
 
@@ -55,8 +55,7 @@ logger:
 
 # Enable Home Assistant API (set a password here for more security)
 api:
-  encryption:
-    key: "xxxx"
+
 
 # Enable OTA (set a password here for more security)
 ota:
@@ -69,12 +68,23 @@ time:
     id: esptime
 
 
+
+
 sensor:
-# - platform: empty_sensor
-  # name: Empty sendsor
+- platform: empty_sensor
+  name: Empty sendsor
 
 - platform: powersensor
-  name: Empty sendsor  # not working...
+  realpower_sensor1:
+    name: Test1
+  realpower_sensor2:
+    name: Test2
+  realpower_sensor3:
+    name: Test3
+  realpower_sensor4:
+    name: Test4
+
+
 
 
 ############ old way ############
